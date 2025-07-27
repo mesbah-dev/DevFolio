@@ -11,3 +11,4 @@ namespace Domain.Entities
         public ICollection<Skill> Skills { get; set; }
     }
 }
+ 

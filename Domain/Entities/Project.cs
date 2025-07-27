@@ -16,6 +16,6 @@ namespace Domain.Entities
 
         public string DemoUrl { get; set; }
 
-        public ICollection<ProjectTechnology> projectTechnologies { get; set; }
+        public ICollection<ProjectTechnology> ProjectTechnologies { get; set; }
     }
 }

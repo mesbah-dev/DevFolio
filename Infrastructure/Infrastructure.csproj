@@ -2,15 +2,13 @@
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
+	<Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
     <Folder Include="Identity\" />
     <Folder Include="Migrations\" />
     <Folder Include="DependencyInjection\" />
-    <Folder Include="Services\" />
   </ItemGroup>
 
   <ItemGroup>
