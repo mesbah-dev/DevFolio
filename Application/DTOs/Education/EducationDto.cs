@@ -1,23 +1,15 @@
 ﻿using System;
 
-namespace Domain.Entities
+namespace Application.DTOs.Education
 {
-    public class Experience
+    public class EducationDto
     {
         public long Id { get; set; }
-
-        public string CompanyName { get; set; }
-
-        public string JobTitle { get; set; }
-
-        public string Location { get; set; }
-
+        public string Degree { get; set; }
+        public string University { get; set; }
         public DateTime StartDate { get; set; }
-
         public DateTime? EndDate { get; set; }
-
         public string Description { get; set; }
         public bool IsActive { get; set; } = true;
-        public bool Deleted { get; set; } = false;
     }
 }

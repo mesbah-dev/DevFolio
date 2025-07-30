@@ -12,7 +12,7 @@ namespace Portfolio.DependencyInjection
             services.AddScoped<IEducationRepository, EducationRepository>();
             services.AddScoped<IExperienceRepository, ExperienceRepository>();
             services.AddScoped<IProjectRepository, ProjectRepository>();
-            services.AddScoped<IProjectTechnologyRepository, ProjectTechnologyRepository>();
+            services.AddScoped<ITechnologyRepository, TechnologyRepository>();
             services.AddScoped<ISiteSettingRepository, SiteSettingRepository>();
             services.AddScoped<ISkillCategoryRepository,SkillCategoryRepository>();
             services.AddScoped<ISkillRepository, SkillRepository>();

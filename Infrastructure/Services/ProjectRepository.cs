@@ -26,14 +26,14 @@ namespace Infrastructure.Services
         public async Task<List<Project>> GetAllAsync()
         {
             return await _context.Projects
-                .Include(p => p.ProjectTechnologies)
+                .Include(p => p.Technologies)
                 .ToListAsync();
         }
 
         public async Task<Project?> GetByIdAsync(long id)
         {
             return await _context.Projects
-                .Include(p => p.ProjectTechnologies)
+                .Include(p => p.Technologies)
                 .FirstOrDefaultAsync(p => p.Id == id);
         }
 

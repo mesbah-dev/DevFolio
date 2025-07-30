@@ -15,5 +15,7 @@
         public string ProfileImageUrl { get; set; }
 
         public string ResumeUrl { get; set; }
+        public bool IsActive { get; set; } =true ;
+        public bool Deleted { get; set; } =false ;
     }
 }

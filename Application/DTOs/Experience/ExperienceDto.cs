@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Domain.Entities
+namespace Application.DTOs.Experience
 {
-    public class Experience
+    public class ExperienceDto
     {
         public long Id { get; set; }
 
@@ -17,7 +17,7 @@ namespace Domain.Entities
         public DateTime? EndDate { get; set; }
 
         public string Description { get; set; }
-        public bool IsActive { get; set; } = true;
-        public bool Deleted { get; set; } = false;
+        public bool IsActive { get; set; } 
+        public bool Deleted { get; set; } 
     }
 }

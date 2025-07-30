@@ -9,5 +9,7 @@
         public string Url { get; set; }
 
         public string IconClass { get; set; }
+        public bool IsActive { get; set; } = true;
+        public bool Deleted { get; set; } = false;
     }
 }

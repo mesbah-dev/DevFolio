@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-
-namespace Domain.Entities
+﻿namespace Application.DTOs.Project
 {
-    public class Project
+    public class ProjectDto
     {
         public long Id { get; set; }
 
@@ -15,9 +13,7 @@ namespace Domain.Entities
         public string GitHubUrl { get; set; }
 
         public string DemoUrl { get; set; }
-        public bool IsActive { get; set; } = true;
-        public bool Deleted { get; set; } = false;
-
-        public ICollection<Technology> Technologies { get; set; }
+        public bool IsActive { get; set; }
+        public bool Deleted { get; set; }
     }
 }

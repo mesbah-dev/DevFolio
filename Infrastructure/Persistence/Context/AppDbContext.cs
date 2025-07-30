@@ -15,7 +15,7 @@ namespace Infrastructure.Persistence.Context
         public DbSet<Education> Educations { get; set; }
         public DbSet<Experience> Experiences { get; set; }
         public DbSet<Project> Projects { get; set; }
-        public DbSet<ProjectTechnology> ProjectTechnologies { get; set; }
+        public DbSet<Technology> Technologies { get; set; }
         public DbSet<SiteSetting> SiteSettings { get; set; }
         public DbSet<Skill> Skills { get; set; }
         public DbSet<SkillCategory> SkillCategories { get; set; }

@@ -1,4 +1,6 @@
-﻿namespace Application.DTOs
+﻿using System.Collections.Generic;
+
+namespace Application.DTOs.Common
 {
     public class ApiResponse
     {
