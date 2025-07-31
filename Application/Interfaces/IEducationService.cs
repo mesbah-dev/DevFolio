@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Application.Interfaces
 {
-    internal interface IEducationService
+    public interface IEducationService
     {
         Task<ApiResponse> CreateEducationAsync(EducationDto dto);
         Task<ApiResponse> UpdateEducationAsync(EducationDto dto);

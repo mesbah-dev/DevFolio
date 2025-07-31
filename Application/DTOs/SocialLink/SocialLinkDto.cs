@@ -1,6 +1,6 @@
-﻿namespace Domain.Entities
+﻿namespace Application.DTOs.SocialLink
 {
-    public class SocialLink
+    public class SocialLinkDto
     {
         public long Id { get; set; }
         public string PlatformName { get; set; }

@@ -1,6 +1,6 @@
-﻿namespace Domain.Entities
+﻿namespace Application.DTOs.UserProfile
 {
-    public class UserProfile
+    public class UserProfileVDto
     {
         public long Id { get; set; }
         public string FullName { get; set; }
@@ -9,7 +9,7 @@
         public string Bio { get; set; }
         public string ProfileImageUrl { get; set; }
         public string ResumeUrl { get; set; }
-        public bool IsActive { get; set; } =true ;
-        public bool Deleted { get; set; } =false ;
+        public bool IsActive { get; set; }
+        public bool Deleted { get; set; }
     }
 }

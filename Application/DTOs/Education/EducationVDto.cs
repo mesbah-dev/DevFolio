@@ -4,6 +4,7 @@ namespace Application.DTOs.Education
 {
     public class EducationVDto
     {
+        public long Id { get; set; }
         public string Degree { get; set; }
         public string University { get; set; }
         public DateTime StartDate { get; set; }

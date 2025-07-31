@@ -1,12 +1,12 @@
-﻿namespace Domain.Entities
+﻿namespace Application.DTOs.SocialLink
 {
-    public class SocialLink
+    public class SocialLinkVDto
     {
         public long Id { get; set; }
         public string PlatformName { get; set; }
         public string Url { get; set; }
         public string IconClass { get; set; }
-        public bool IsActive { get; set; } = true;
-        public bool Deleted { get; set; } = false;
+        public bool IsActive { get; set; } 
+        public bool Deleted { get; set; }
     }
 }

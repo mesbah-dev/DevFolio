@@ -1,3 +1,4 @@
+using Application.Mappings;
 using Infrastructure.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 using Portfolio.DependencyInjection;
@@ -10,6 +11,11 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 // Register custom application services (defined in an extension method)
 builder.Services.RegisterServices(builder.Configuration);
+
+// AutoMapper 
+// Mapping configuration for converting between domain models and DTOs.
+builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
+
 
 // Add controllers to the service container (for API endpoints)
 builder.Services.AddControllers();

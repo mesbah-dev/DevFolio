@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Application\Application.csproj" />
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
   </ItemGroup>
 
@@ -22,7 +23,6 @@
     <Folder Include="Api\" />
     <Folder Include="Mappings\" />
     <Folder Include="Filters\" />
-    <Folder Include="ViewModels\" />
   </ItemGroup>
 
 </Project>
