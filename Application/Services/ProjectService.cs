@@ -19,7 +19,7 @@ namespace Application.Services
             throw new NotImplementedException();
         }
 
-        public Task<ApiResponse<PagedResult<List<ProjectVDto>>>> GetAllAsync(PagingInput input)
+        public ApiResponse<PagedResult<ProjectVDto>> GetAll(PagingInput input)
         {
             throw new NotImplementedException();
         }
@@ -29,7 +29,7 @@ namespace Application.Services
             throw new NotImplementedException();
         }
 
-        public Task<ApiResponse<PagedResult<List<ProjectVDto>>>> SearchAsync(BaseInput input)
+        public ApiResponse<PagedResult<ProjectVDto>> Search(BaseInput input)
         {
             throw new NotImplementedException();
         }

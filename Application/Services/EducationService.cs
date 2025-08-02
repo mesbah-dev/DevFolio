@@ -1,12 +1,10 @@
 ﻿using Application.DTOs.Common;
-using Application.DTOs.ContactMessage;
 using Application.DTOs.Education;
 using Application.Extensions;
 using Application.Interfaces;
 using AutoMapper;
 using Domain.Entities;
 using Domain.Interfaces;
-using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -59,14 +57,14 @@ namespace Application.Services
         public ApiResponse<PagedResult<EducationVDto>> Search(BaseInput input)
         {
             var query = _repository.GetAll();
-            // Use Q for Filtering By Email
+            // Use Q for Filtering By University
             if (!string.IsNullOrEmpty(input.Q))
             {
                 query = query.Where(s => s.University.Contains(input.Q));
             }
             query = query.ApplySortingById(input.SortBy);
             var pagedResult = new PagedResult<Education, EducationVDto>(input, query, _mapper);
-            return new ApiResponse<PagedResult<EducationVDto>>(data:pagedResult, isSuccess: true, message: "Success");
+            return new ApiResponse<PagedResult<EducationVDto>>(data: pagedResult, isSuccess: true, message: "Success");
         }
 
         public async Task<ApiResponse> UpdateEducationAsync(EducationDto dto)
@@ -75,7 +73,7 @@ namespace Application.Services
             if (entity == null)
                 return new ApiResponse(isSuccess: false, message: "Education not found.");
 
-            _mapper.Map(dto, entity); ;
+            _mapper.Map(dto, entity); 
             await _repository.UpdateAsync(entity);
             return new ApiResponse(isSuccess: true, message: "Success");
         }
