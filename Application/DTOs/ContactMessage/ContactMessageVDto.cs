@@ -2,7 +2,7 @@
 
 namespace Application.DTOs.ContactMessage
 {
-    internal class ContactMessageVDto
+    public class ContactMessageVDto
     {
         public long Id { get; set; }
         public string FullName { get; set; }

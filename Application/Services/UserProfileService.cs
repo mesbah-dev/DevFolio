@@ -19,12 +19,17 @@ namespace Application.Services
             throw new NotImplementedException();
         }
 
-        public Task<ApiResponse<List<UserProfileVDto>>> GetAllAsync(BaseInput input)
+        public Task<ApiResponse<List<UserProfileVDto>>> GetAllAsync(PagingInput input)
         {
             throw new NotImplementedException();
         }
 
         public Task<ApiResponse<UserProfileVDto>> GetByIdAsync(long id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<ApiResponse<List<UserProfileVDto>>> SearchAsync(BaseInput input)
         {
             throw new NotImplementedException();
         }

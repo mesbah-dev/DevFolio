@@ -1,5 +1,6 @@
 ﻿using Domain.Entities;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 #nullable enable
 namespace Domain.Interfaces
@@ -7,7 +8,7 @@ namespace Domain.Interfaces
     public interface ISkillCategoryRepository
     {
         Task<SkillCategory?> GetByIdAsync(long id);
-        Task<List<SkillCategory>> GetAllAsync();
+        IQueryable<SkillCategory> GetAll();
         Task AddAsync(SkillCategory skillCategory);
         Task UpdateAsync(SkillCategory skillCategory);
         Task DeleteAsync(SkillCategory skillCategory);

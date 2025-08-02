@@ -7,8 +7,9 @@ namespace Application.Interfaces
     public interface IContactMessageService
     {
         Task<ApiResponse> CreateMessageAsync(ContactMessageDto dto);
-        Task<ApiResponse<PagedResult<ContactMessageDto>>> GetAllAsync(BaseInput input);
-        Task<ApiResponse<ContactMessageDto>> GetByIdAsync(long id);
+        ApiResponse<PagedResult<ContactMessageVDto>> GetAll(PagingInput input);
+        ApiResponse<PagedResult<ContactMessageVDto>> SearchAsync(BaseInput input);
+        Task<ApiResponse<ContactMessageVDto>> GetByIdAsync(long id);
 
     }
 }

@@ -1,5 +1,5 @@
 ﻿using Domain.Entities;
-using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 #nullable enable
 namespace Domain.Interfaces
@@ -7,7 +7,7 @@ namespace Domain.Interfaces
     public interface IProjectRepository
     {
         Task<Project?> GetByIdAsync(long id);
-        Task<List<Project>> GetAllAsync();
+        IQueryable<Project> GetAll();
         Task AddAsync(Project project);
         Task UpdateAsync(Project project);
         Task DeleteAsync(Project project);

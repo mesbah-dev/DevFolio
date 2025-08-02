@@ -2,7 +2,7 @@
 using Domain.Interfaces;
 using Infrastructure.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Infrastructure.Services
@@ -23,11 +23,11 @@ namespace Infrastructure.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task<List<Project>> GetAllAsync()
+        public IQueryable<Project> GetAll()
         {
-            return await _context.Projects
+            return _context.Projects
                 .Include(p => p.Technologies)
-                .ToListAsync();
+                .AsNoTracking();
         }
 
         public async Task<Project?> GetByIdAsync(long id)
@@ -39,7 +39,6 @@ namespace Infrastructure.Services
 
         public async Task UpdateAsync(Project project)
         {
-            _context.Projects.Update(project);
             await _context.SaveChangesAsync();
         }
     }

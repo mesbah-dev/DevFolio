@@ -2,7 +2,7 @@
 using Domain.Interfaces;
 using Infrastructure.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Infrastructure.Services
@@ -23,9 +23,9 @@ namespace Infrastructure.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task<List<Experience>> GetAllAsync()
+        public IQueryable<Experience> GetAll()
         {
-            return await _context.Experiences.ToListAsync();
+            return _context.Experiences.AsNoTracking();
         }
 
         public async Task<Experience?> GetByIdAsync(long id)
@@ -35,7 +35,6 @@ namespace Infrastructure.Services
 
         public async Task UpdateAsync(Experience experience)
         {
-            _context.Experiences.Update(experience);
             await _context.SaveChangesAsync();
         }
     }

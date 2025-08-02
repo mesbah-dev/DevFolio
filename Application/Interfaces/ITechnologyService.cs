@@ -11,6 +11,7 @@ namespace Application.Interfaces
         Task<ApiResponse> UpdateTechnologyAsync(TechnologyDto dto);
         Task<ApiResponse> DeleteTechnologyAsync(long id);
         Task<ApiResponse<TechnologyVDto>> GetByIdAsync(long id);
-        Task<ApiResponse<List<TechnologyVDto>>> GetAllAsync(BaseInput input);
+        Task<ApiResponse<List<TechnologyVDto>>> GetAllAsync(PagingInput input);
+        Task<ApiResponse<List<TechnologyVDto>>> SearchAsync(BaseInput input);
     }
 }

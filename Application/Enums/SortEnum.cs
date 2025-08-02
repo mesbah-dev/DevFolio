@@ -12,6 +12,5 @@ namespace Application.Enums
         Default = 0,
         New = 1,
         Old = 2,
-        Name = 3,
     }
 }

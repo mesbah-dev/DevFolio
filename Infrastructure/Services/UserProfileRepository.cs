@@ -2,7 +2,7 @@
 using Domain.Interfaces;
 using Infrastructure.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Infrastructure.Services
@@ -23,9 +23,9 @@ namespace Infrastructure.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task<List<UserProfile>> GetAllAsync()
+        public IQueryable<UserProfile> GetAll()
         {
-            return await _context.UserProfiles.ToListAsync();
+            return _context.UserProfiles.AsNoTracking();
         }
 
         public async Task<UserProfile?> GetByIdAsync(long id)
@@ -35,7 +35,6 @@ namespace Infrastructure.Services
 
         public async Task UpdateAsync(UserProfile userProfile)
         {
-            _context.UserProfiles.Update(userProfile);
             await _context.SaveChangesAsync();
         }
     }

@@ -3,6 +3,7 @@ using Domain.Interfaces;
 using Infrastructure.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Infrastructure.Services
@@ -23,9 +24,9 @@ namespace Infrastructure.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task<List<SocialLink>> GetAllAsync()
+        public  IQueryable<SocialLink> GetAll()
         {
-            return await _context.SocialLinks.ToListAsync();
+            return  _context.SocialLinks.AsNoTracking();
         }
 
         public async Task<SocialLink?> GetByIdAsync(long id)
@@ -35,7 +36,6 @@ namespace Infrastructure.Services
 
         public async Task UpdateAsync(SocialLink socialLink)
         {
-            _context.SocialLinks.Update(socialLink);
             await _context.SaveChangesAsync();
         }
     }

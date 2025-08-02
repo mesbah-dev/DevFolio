@@ -9,7 +9,8 @@ namespace Application.Interfaces
         Task<ApiResponse> CreateEducationAsync(EducationDto dto);
         Task<ApiResponse> UpdateEducationAsync(EducationDto dto);
         Task<ApiResponse> DeleteEducationAsync(long id);
-        Task<ApiResponse<PagedResult<EducationVDto>>> GetAllAsync(BaseInput input);
-        Task<ApiResponse<EducationDto>> GetByIdAsync(long id);
+        ApiResponse<PagedResult<EducationVDto>> GetAll(PagingInput input);
+        ApiResponse<PagedResult<EducationVDto>> Search(BaseInput input);
+        Task<ApiResponse<EducationVDto>> GetByIdAsync(long id);
     }
 }

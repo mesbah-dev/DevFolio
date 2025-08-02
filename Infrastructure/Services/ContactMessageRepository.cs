@@ -2,7 +2,7 @@
 using Domain.Interfaces;
 using Infrastructure.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Infrastructure.Services
@@ -23,9 +23,9 @@ namespace Infrastructure.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task<List<ContactMessage>> GetAllAsync()
+        public IQueryable<ContactMessage> GetAll()
         {
-            return await _context.ContactMessages.ToListAsync();
+            return _context.ContactMessages.AsNoTracking();
         }
 
         public async Task<ContactMessage?> GetByIdAsync(long id)
@@ -35,7 +35,6 @@ namespace Infrastructure.Services
 
         public async Task UpdateAsync(ContactMessage contactMessage)
         {
-            _context.ContactMessages.Update(contactMessage);
             await _context.SaveChangesAsync();
         }
     }

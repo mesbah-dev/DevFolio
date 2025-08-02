@@ -11,6 +11,7 @@ namespace Application.Interfaces
         Task<ApiResponse> UpdateSocialLinkAsync(SocialLinkDto dto);
         Task<ApiResponse> DeleteSocialLinkAsync(long id);
         Task<ApiResponse<SocialLinkVDto>> GetByIdAsync(long id);
-        Task<ApiResponse<List<SocialLinkVDto>>> GetAllAsync(BaseInput input);
+        Task<ApiResponse<List<SocialLinkVDto>>> GetAllAsync(PagingInput input);
+        Task<ApiResponse<List<SocialLinkVDto>>> SearchAsync(BaseInput input);
     }
 }

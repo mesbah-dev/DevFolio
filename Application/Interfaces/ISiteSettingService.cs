@@ -11,6 +11,7 @@ namespace Application.Interfaces
         Task<ApiResponse> UpdateSiteSettingAsync(SiteSettingDto dto);
         Task<ApiResponse> DeleteSiteSettingAsync(long id);
         Task<ApiResponse<SiteSettingVDto>> GetByIdAsync(long id);
-        Task<ApiResponse<List<SiteSettingVDto>>> GetAllAsync(BaseInput input);
+        Task<ApiResponse<List<SiteSettingVDto>>> GetAllAsync(PagingInput input);
+        Task<ApiResponse<List<SiteSettingVDto>>> SearchAsync(BaseInput input);
     }
 }

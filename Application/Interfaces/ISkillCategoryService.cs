@@ -11,7 +11,8 @@ namespace Application.Interfaces
         Task<ApiResponse> UpdateSkillCategoryAsync(SkillCategoryDto dto);
         Task<ApiResponse> DeleteSkillCategoryAsync(long id);
         Task<ApiResponse<SkillCategoryVDto>> GetByIdAsync(long id);
-        Task<ApiResponse<List<SkillCategoryVDto>>> GetAllAsync(BaseInput input);
+        Task<ApiResponse<List<SkillCategoryVDto>>> GetAllAsync(PagingInput input);
+        Task<ApiResponse<List<SkillCategoryVDto>>> SearchAsync(BaseInput input);
 
     }
 }

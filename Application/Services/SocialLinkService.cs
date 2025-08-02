@@ -19,12 +19,17 @@ namespace Application.Services
             throw new NotImplementedException();
         }
 
-        public Task<ApiResponse<List<SocialLinkVDto>>> GetAllAsync(BaseInput input)
+        public Task<ApiResponse<List<SocialLinkVDto>>> GetAllAsync(PagingInput input)
         {
             throw new NotImplementedException();
         }
 
         public Task<ApiResponse<SocialLinkVDto>> GetByIdAsync(long id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<ApiResponse<List<SocialLinkVDto>>> SearchAsync(BaseInput input)
         {
             throw new NotImplementedException();
         }

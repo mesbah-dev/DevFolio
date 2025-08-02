@@ -10,7 +10,8 @@ namespace Application.Interfaces
         Task<ApiResponse> CreateAdminAsync(AdminUserDto dto);
         Task<ApiResponse> UpdateAdminAsync(AdminUserDto dto);
         Task<ApiResponse> DeleteAdminAsync(long id);
-        Task<ApiResponse<PagedResult<List<AdminUserVDto>>>> GetAllAsync(BaseInput input);
+        Task<ApiResponse<PagedResult<List<AdminUserVDto>>>> GetAllAsync(PagingInput input);
+        Task<ApiResponse<PagedResult<List<AdminUserVDto>>>> SearchAsync(BaseInput input);
         Task<ApiResponse<AdminUserDto>> GetByIdAsync(long id);
     }
 }

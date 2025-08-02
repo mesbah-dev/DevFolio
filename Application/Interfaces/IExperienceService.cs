@@ -10,7 +10,8 @@ namespace Application.Interfaces
         Task<ApiResponse> CreateExperienceAsync(ExperienceDto dto);
         Task<ApiResponse> UpdateExperienceAsync(ExperienceDto dto);
         Task<ApiResponse> DeleteExperienceAsync(long id);
-        Task<ApiResponse<PagedResult<List<ExperienceVDto>>>> GetAllAsync(BaseInput input);
+        Task<ApiResponse<PagedResult<List<ExperienceVDto>>>> GetAllAsync(PagingInput input);
+        Task<ApiResponse<PagedResult<List<ExperienceVDto>>>> SearchAsync(BaseInput input);
         Task<ApiResponse<ExperienceDto>> GetByIdAsync(long id);
     }
 }

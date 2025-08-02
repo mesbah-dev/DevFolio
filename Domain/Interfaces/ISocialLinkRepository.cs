@@ -1,5 +1,5 @@
 ﻿using Domain.Entities;
-using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 #nullable enable
 namespace Domain.Interfaces
@@ -7,7 +7,7 @@ namespace Domain.Interfaces
     public interface ISocialLinkRepository
     {
         Task<SocialLink?> GetByIdAsync(long id);
-        Task<List<SocialLink>> GetAllAsync();
+        IQueryable<SocialLink> GetAll();
         Task AddAsync(SocialLink socialLink);
         Task UpdateAsync(SocialLink socialLink);
         Task DeleteAsync(SocialLink socialLink);
