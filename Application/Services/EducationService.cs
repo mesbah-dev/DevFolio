@@ -57,11 +57,11 @@ namespace Application.Services
         public ApiResponse<PagedResult<EducationVDto>> Search(BaseInput input)
         {
             var query = _repository.GetAll();
-            // Use Q for Filtering By University
+
+            // Use 'Q' for Filtering by University
             if (!string.IsNullOrEmpty(input.Q))
-            {
                 query = query.Where(s => s.University.Contains(input.Q));
-            }
+            
             query = query.ApplySortingById(input.SortBy);
             var pagedResult = new PagedResult<Education, EducationVDto>(input, query, _mapper);
             return new ApiResponse<PagedResult<EducationVDto>>(data: pagedResult, isSuccess: true, message: "Success");
@@ -74,7 +74,7 @@ namespace Application.Services
                 return new ApiResponse(isSuccess: false, message: "Education not found.");
 
             _mapper.Map(dto, entity); 
-            await _repository.UpdateAsync(entity);
+            await _repository.SaveChangesAsync();
             return new ApiResponse(isSuccess: true, message: "Success");
         }
     }

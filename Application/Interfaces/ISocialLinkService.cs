@@ -1,4 +1,5 @@
 ﻿using Application.DTOs.Common;
+using Application.DTOs.Skill;
 using Application.DTOs.SocialLink;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -11,7 +12,7 @@ namespace Application.Interfaces
         Task<ApiResponse> UpdateSocialLinkAsync(SocialLinkDto dto);
         Task<ApiResponse> DeleteSocialLinkAsync(long id);
         Task<ApiResponse<SocialLinkVDto>> GetByIdAsync(long id);
-        Task<ApiResponse<List<SocialLinkVDto>>> GetAllAsync(PagingInput input);
-        Task<ApiResponse<List<SocialLinkVDto>>> SearchAsync(BaseInput input);
+        ApiResponse<PagedResult<SocialLinkVDto>> GetAll(PagingInput input);
+        ApiResponse<PagedResult<SocialLinkVDto>> Search(BaseInput input);
     }
 }

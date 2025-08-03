@@ -32,12 +32,18 @@ namespace Infrastructure.Services
 
         public async Task<Project?> GetByIdAsync(long id)
         {
-            return await _context.Projects
-                .Include(p => p.Technologies)
-                .FirstOrDefaultAsync(p => p.Id == id);
+            return await _context.Projects.FindAsync(id);
+               
         }
 
-        public async Task UpdateAsync(Project project)
+        public async Task<Project?> GetByIdWithTechnologiesAsync(long id)
+        {
+            return await _context.Projects
+                           .Include(p => p.Technologies)
+                           .FirstOrDefaultAsync(p => p.Id == id);
+        }
+
+        public async Task SaveChangesAsync()
         {
             await _context.SaveChangesAsync();
         }

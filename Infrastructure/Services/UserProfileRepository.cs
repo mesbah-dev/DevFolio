@@ -33,7 +33,7 @@ namespace Infrastructure.Services
             return await _context.UserProfiles.FindAsync(id);
         }
 
-        public async Task UpdateAsync(UserProfile userProfile)
+        public async Task SaveChangesAsync()
         {
             await _context.SaveChangesAsync();
         }

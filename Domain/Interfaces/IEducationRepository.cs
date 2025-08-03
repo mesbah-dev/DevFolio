@@ -10,7 +10,7 @@ namespace Domain.Interfaces
         Task<Education?> GetByIdAsync(long id);
         IQueryable<Education> GetAll();
         Task AddAsync(Education education);
-        Task UpdateAsync(Education education);
+        Task SaveChangesAsync();
         Task DeleteAsync(Education education);
     }
 }

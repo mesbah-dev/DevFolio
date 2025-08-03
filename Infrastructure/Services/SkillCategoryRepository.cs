@@ -19,22 +19,34 @@ namespace Infrastructure.Services
 
         public async Task DeleteAsync(SkillCategory skillCategory)
         {
-            _context.SkillCategories.Remove(skillCategory);
+            skillCategory.Deleted = true;
             await _context.SaveChangesAsync();
         }
 
         public IQueryable<SkillCategory> GetAll()
         {
-            return _context.SkillCategories.Include(x => x.Skills).AsNoTracking();
+            return _context.SkillCategories
+                .Include(x => x.Skills)
+                .Where(s => !s.Deleted)
+                .AsNoTracking();
         }
 
         public async Task<SkillCategory?> GetByIdAsync(long id)
         {
-            return await _context.SkillCategories.Include(x => x.Skills)
-                                     .FirstOrDefaultAsync(x => x.Id == id);
+            return await _context.SkillCategories
+                                 .Where(s => !s.Deleted && s.Id == id)
+                                 .FirstOrDefaultAsync();
         }
 
-        public async Task UpdateAsync(SkillCategory skillCategory)
+        public async Task<SkillCategory?> GetByIdWithSkillsAsync(long id)
+        {
+            return await _context.SkillCategories
+                .Include(x => x.Skills)
+                .Where(s => !s.Deleted && s.Id == id)
+                .FirstOrDefaultAsync();
+        }
+
+        public async Task SaveChangesAsync()
         {
             await _context.SaveChangesAsync();
         }

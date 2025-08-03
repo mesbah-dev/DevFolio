@@ -9,7 +9,7 @@ namespace Domain.Interfaces
         Task<Skill?> GetByIdAsync(long id);
         IQueryable<Skill> GetAll();
         Task AddAsync(Skill skill);
-        Task UpdateAsync(Skill skill);
+        Task SaveChangesAsync();
         Task DeleteAsync(Skill skill);
     }
 }

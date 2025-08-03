@@ -9,7 +9,7 @@ namespace Domain.Interfaces
         Task<UserProfile?> GetByIdAsync(long id);
         IQueryable<UserProfile> GetAll();
         Task AddAsync(UserProfile userProfile);
-        Task UpdateAsync(UserProfile userProfile);
+        Task SaveChangesAsync();
         Task DeleteAsync(UserProfile userProfile);
     }
 }

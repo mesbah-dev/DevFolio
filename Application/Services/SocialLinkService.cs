@@ -2,7 +2,6 @@
 using Application.DTOs.SocialLink;
 using Application.Interfaces;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Application.Services
@@ -19,7 +18,7 @@ namespace Application.Services
             throw new NotImplementedException();
         }
 
-        public Task<ApiResponse<List<SocialLinkVDto>>> GetAllAsync(PagingInput input)
+        public ApiResponse<PagedResult<SocialLinkVDto>> GetAll(PagingInput input)
         {
             throw new NotImplementedException();
         }
@@ -29,7 +28,7 @@ namespace Application.Services
             throw new NotImplementedException();
         }
 
-        public Task<ApiResponse<List<SocialLinkVDto>>> SearchAsync(BaseInput input)
+        public ApiResponse<PagedResult<SocialLinkVDto>> Search(BaseInput input)
         {
             throw new NotImplementedException();
         }

@@ -33,7 +33,7 @@ namespace Infrastructure.Services
             return await _context.SiteSettings.FindAsync(id);
         }
 
-        public async Task UpdateAsync(SiteSetting siteSetting)
+        public async Task SaveChangesAsync()
         {
             await _context.SaveChangesAsync();
         }

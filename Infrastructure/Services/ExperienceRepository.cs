@@ -33,7 +33,7 @@ namespace Infrastructure.Services
             return await _context.Experiences.FindAsync(id);
         }
 
-        public async Task UpdateAsync(Experience experience)
+        public async Task SaveChangesAsync()
         {
             await _context.SaveChangesAsync();
         }

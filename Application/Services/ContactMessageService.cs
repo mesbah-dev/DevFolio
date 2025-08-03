@@ -57,11 +57,10 @@ namespace Application.Services
         public ApiResponse<PagedResult<ContactMessageVDto>> SearchAsync(BaseInput input)
         {
             var query = _repository.GetAll();
-            // Use Q for Filtering By Email
+            // Use 'Q' for filtering by Email
             if (!string.IsNullOrEmpty(input.Q))
-            {
                 query = query.Where(s => s.Email.Contains(input.Q));
-            }
+            
             query = query.ApplySortingById(input.SortBy);
 
             var pagedResult = new PagedResult<ContactMessage, ContactMessageVDto>(input, query, _mapper);

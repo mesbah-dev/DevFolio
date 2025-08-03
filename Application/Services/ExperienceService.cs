@@ -75,7 +75,7 @@ namespace Application.Services
                 return new ApiResponse(isSuccess: false, message: "Experience not found.");
 
             _mapper.Map(dto, entity);
-            await _repository.UpdateAsync(entity);
+            await _repository.SaveChangesAsync();
             return new ApiResponse(isSuccess: true, message: "Success");
         }
     }

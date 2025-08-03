@@ -9,7 +9,7 @@ namespace Domain.Interfaces
         Task<SiteSetting?> GetByIdAsync(long id);
         IQueryable<SiteSetting> GetAll();
         Task AddAsync(SiteSetting siteSetting);
-        Task UpdateAsync(SiteSetting siteSetting);
+        Task SaveChangesAsync();
         Task DeleteAsync(SiteSetting siteSetting);
     }
 }

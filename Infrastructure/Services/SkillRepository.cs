@@ -33,7 +33,7 @@ namespace Infrastructure.Services
             return await _context.Skills.FindAsync(id);
         }
 
-        public async Task UpdateAsync(Skill skill)
+        public async Task SaveChangesAsync()
         {
             await _context.SaveChangesAsync();
         }

@@ -2,6 +2,7 @@
 using Domain.Interfaces;
 using Infrastructure.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -36,7 +37,14 @@ namespace Infrastructure.Services
                 .FirstOrDefaultAsync();
         }
 
-        public async Task UpdateAsync(Technology technology)
+        public async Task<List<Technology>> GetByIdsAsync(List<long> ids)
+        {
+            return await _context.Technologies
+                .Where(t => ids.Contains(t.Id))
+                .ToListAsync();
+        }
+
+        public async Task SaveChangesAsync()
         {
             await _context.SaveChangesAsync();
         }

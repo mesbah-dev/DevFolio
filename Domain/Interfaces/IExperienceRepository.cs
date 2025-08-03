@@ -9,7 +9,7 @@ namespace Domain.Interfaces
         Task<Experience?> GetByIdAsync(long id);
         IQueryable<Experience> GetAll();
         Task AddAsync(Experience experience);
-        Task UpdateAsync(Experience experience);
+        Task SaveChangesAsync();
         Task DeleteAsync(Experience experience);
     }
 }

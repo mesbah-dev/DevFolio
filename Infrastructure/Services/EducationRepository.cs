@@ -32,7 +32,7 @@ namespace Infrastructure.Services
             return await _context.Educations.FindAsync(id);
         }
 
-        public async Task UpdateAsync(Education education)
+        public async Task SaveChangesAsync()
         {
             await _context.SaveChangesAsync();
         }

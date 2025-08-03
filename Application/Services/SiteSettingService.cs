@@ -1,42 +1,81 @@
 ﻿using Application.DTOs.Common;
 using Application.DTOs.SiteSetting;
+using Application.Extensions;
 using Application.Interfaces;
-using System;
-using System.Collections.Generic;
+using AutoMapper;
+using Domain.Entities;
+using Domain.Interfaces;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Application.Services
 {
     public class SiteSettingService : ISiteSettingService
     {
-        public Task<ApiResponse> CreateSiteSettingAsync(SiteSettingDto dto)
+        private readonly ISiteSettingRepository _repository;
+        private readonly IMapper _mapper;
+        public SiteSettingService(ISiteSettingRepository repository, IMapper mapper)
         {
-            throw new NotImplementedException();
+            _repository = repository;
+            _mapper = mapper;
+        }
+        public async Task<ApiResponse> CreateSiteSettingAsync(SiteSettingDto dto)
+        {
+            var entity = _mapper.Map<SiteSetting>(dto);
+            await _repository.AddAsync(entity);
+            return new ApiResponse(isSuccess: true, message: "Success");
         }
 
-        public Task<ApiResponse> DeleteSiteSettingAsync(long id)
+        public async Task<ApiResponse> DeleteSiteSettingAsync(long id)
         {
-            throw new NotImplementedException();
+            var entity = await _repository.GetByIdAsync(id);
+            if (entity == null)
+                return new ApiResponse(isSuccess: false, message: "SiteSetting not found.");
+
+            await _repository.DeleteAsync(entity);
+            return new ApiResponse(isSuccess: true, message: "Success");
         }
 
-        public Task<ApiResponse<List<SiteSettingVDto>>> GetAllAsync(PagingInput input)
+        public ApiResponse<PagedResult<SiteSettingVDto>> GetAll(PagingInput input)
         {
-            throw new NotImplementedException();
+            var query = _repository.GetAll();
+            query = query.ApplySortingById(input.SortBy);
+
+            var pagedResult = new PagedResult<SiteSetting, SiteSettingVDto>(input, query, _mapper);
+            return new ApiResponse<PagedResult<SiteSettingVDto>>(data: pagedResult, isSuccess: true, message: "Success");
         }
 
-        public Task<ApiResponse<SiteSettingVDto>> GetByIdAsync(long id)
+        public async Task<ApiResponse<SiteSettingVDto>> GetByIdAsync(long id)
         {
-            throw new NotImplementedException();
+            var result = await _repository.GetByIdAsync(id);
+            var viewModel = _mapper.Map<SiteSettingVDto>(result);
+
+            return new ApiResponse<SiteSettingVDto>(data: viewModel, isSuccess: true, message: "Success");
         }
 
-        public Task<ApiResponse<List<SiteSettingVDto>>> SearchAsync(BaseInput input)
+        public ApiResponse<PagedResult<SiteSettingVDto>> Search(BaseInput input)
         {
-            throw new NotImplementedException();
+            var query = _repository.GetAll();
+            // Use 'Q' for filtering by SiteTitle
+            if (!string.IsNullOrEmpty(input.Q))
+                query = query.Where(s => s.SiteTitle.Contains(input.Q));
+
+            query = query.ApplySortingById(input.SortBy);
+
+            var pagedResult = new PagedResult<SiteSetting, SiteSettingVDto>(input, query, _mapper);
+            return new ApiResponse<PagedResult<SiteSettingVDto>>(data: pagedResult, isSuccess: true, message: "Success");
         }
 
-        public Task<ApiResponse> UpdateSiteSettingAsync(SiteSettingDto dto)
+        public async Task<ApiResponse> UpdateSiteSettingAsync(SiteSettingDto dto)
         {
-            throw new NotImplementedException();
+            var entity = await _repository.GetByIdAsync(dto.Id);
+            if (entity == null)
+                return new ApiResponse(isSuccess: false, message: "SiteSetting not found.");
+
+            _mapper.Map(dto, entity);
+            await _repository.SaveChangesAsync();
+            return new ApiResponse(isSuccess: true, message: "Success.");
+
         }
     }
 }

@@ -9,7 +9,7 @@ namespace Domain.Interfaces
         Task<SocialLink?> GetByIdAsync(long id);
         IQueryable<SocialLink> GetAll();
         Task AddAsync(SocialLink socialLink);
-        Task UpdateAsync(SocialLink socialLink);
+        Task SaveChangesAsync();
         Task DeleteAsync(SocialLink socialLink);
     }
 }

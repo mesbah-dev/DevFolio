@@ -11,7 +11,7 @@ namespace Domain.Interfaces
         Task<ContactMessage?> GetByIdAsync(long id);
         IQueryable<ContactMessage> GetAll();
         Task AddAsync(ContactMessage contactMessage);
-        Task UpdateAsync(ContactMessage contactMessage);
+        Task SaveChangesAsync();
         Task DeleteAsync(ContactMessage contactMessage);
     }
 }

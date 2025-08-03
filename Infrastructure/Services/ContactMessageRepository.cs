@@ -33,7 +33,7 @@ namespace Infrastructure.Services
             return await _context.ContactMessages.FindAsync(id);
         }
 
-        public async Task UpdateAsync(ContactMessage contactMessage)
+        public async Task SaveChangesAsync()
         {
             await _context.SaveChangesAsync();
         }

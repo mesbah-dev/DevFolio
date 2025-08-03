@@ -34,7 +34,7 @@ namespace Infrastructure.Services
             return await _context.SocialLinks.FindAsync(id);
         }
 
-        public async Task UpdateAsync(SocialLink socialLink)
+        public async Task SaveChangesAsync()
         {
             await _context.SaveChangesAsync();
         }

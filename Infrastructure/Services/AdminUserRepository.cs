@@ -34,7 +34,7 @@ namespace Infrastructure.Services
             return await _context.AdminUsers.FindAsync(id);
         }
 
-        public async Task UpdateAsync(AdminUser adminUser)
+        public async Task SaveChangesAsync()
         {
             await _context.SaveChangesAsync();
         }

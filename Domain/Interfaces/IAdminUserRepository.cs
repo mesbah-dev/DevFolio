@@ -11,7 +11,7 @@ namespace Domain.Interfaces
         Task<AdminUser?> GetByIdAsync(long id);
         IQueryable<AdminUser> GetAll();
         Task AddAsync(AdminUser adminUser);
-        Task UpdateAsync(AdminUser adminUser);
+        Task SaveChangesAsync();
         Task DeleteAsync(AdminUser adminUser);
     }
 }
