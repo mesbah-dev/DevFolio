@@ -56,11 +56,9 @@ namespace Application.Services
         public ApiResponse<PagedResult<ExperienceVDto>> Search(BaseInput input)
         {
             var query = _repository.GetAll();
-            //Use Q for Filternig BY JobTitle
+            //Use 'Q' for filternig by JobTitle
             if (!string.IsNullOrEmpty(input.Q))
                 query = query.Where(s => s.JobTitle.Contains(input.Q));
-            if (input.Active.HasValue)
-                query = query.Where(s => s.IsActive == input.Active.Value);
             query = query.ApplySortingById(input.SortBy);
 
             var pagedResult = new PagedResult<Experience, ExperienceVDto>(input, query, _mapper);

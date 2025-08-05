@@ -1,7 +1,5 @@
 ﻿using Application.DTOs.Common;
 using Application.DTOs.Skill;
-using Application.DTOs.SkillCategory;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Application.Interfaces
@@ -13,6 +11,6 @@ namespace Application.Interfaces
         Task<ApiResponse> DeleteSkillAsync(long id);
         Task<ApiResponse<SkillVDto>> GetByIdAsync(long id);
         ApiResponse<PagedResult<SkillVDto>> GetAll(PagingInput input);
-        ApiResponse<PagedResult<SkillVDto>> Search(BaseInput input);
+        ApiResponse<PagedResult<SkillVDto>> Search(SkillSearchInput input);
     }
 }

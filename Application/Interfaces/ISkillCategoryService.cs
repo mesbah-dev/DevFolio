@@ -12,7 +12,7 @@ namespace Application.Interfaces
         Task<ApiResponse<SkillCategoryVDto>> GetByIdAsync(long id);
         Task<ApiResponse<SkillCategoryVDto>> GetByIdWithSkillsAsync(long id);
         ApiResponse<PagedResult<SkillCategoryVDto>> GetAll(PagingInput input);
-        ApiResponse<PagedResult<SkillCategoryVDto>> Search(BaseInput input);
+        ApiResponse<PagedResult<SkillCategoryVDto>> Search(SkillCategorySearchInput input);
 
     }
 }

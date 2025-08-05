@@ -38,7 +38,9 @@ namespace Application.Mappings
             CreateMap<SiteSetting, SiteSettingDto>().ReverseMap();
             CreateMap<SiteSetting, SiteSettingVDto>();
             //Skill
-            CreateMap<Skill, SkillDto>().ReverseMap();
+            CreateMap<Skill, SkillDto>();
+            CreateMap<SkillDto, Skill>()
+                .ForMember(dest => dest.SkillCategory, opt => opt.Ignore());
             CreateMap<Skill, SkillVDto>();
             //SkillCategory
             CreateMap<SkillCategory, SkillCategoryDto>();
@@ -49,7 +51,9 @@ namespace Application.Mappings
             CreateMap<SocialLink, SocialLinkDto>().ReverseMap();
             CreateMap<SocialLink, SocialLinkVDto>();
             //Technology
-            CreateMap<Technology, TechnologyDto>().ReverseMap();
+            CreateMap<Technology, TechnologyDto>();
+            CreateMap<TechnologyDto, Technology>()
+                .ForMember(dest => dest.Projects, opt => opt.Ignore());
             CreateMap<Technology, TechnologyVDto>();
             //UserProfile
             CreateMap<UserProfile, UserProfileDto>().ReverseMap();

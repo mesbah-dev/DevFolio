@@ -34,6 +34,11 @@ namespace Infrastructure.Services
             return await _context.AdminUsers.FindAsync(id);
         }
 
+        public async Task<bool> IsUsernameUniqueAsync(string username)
+        {
+            return !await _context.AdminUsers.AnyAsync(s => s.Username == username);
+        }
+
         public async Task SaveChangesAsync()
         {
             await _context.SaveChangesAsync();

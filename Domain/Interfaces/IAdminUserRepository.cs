@@ -1,5 +1,4 @@
 ﻿using Domain.Entities;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 #nullable enable
@@ -13,5 +12,7 @@ namespace Domain.Interfaces
         Task AddAsync(AdminUser adminUser);
         Task SaveChangesAsync();
         Task DeleteAsync(AdminUser adminUser);
+        Task<bool> IsUsernameUniqueAsync(string username);
+
     }
 }

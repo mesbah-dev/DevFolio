@@ -82,7 +82,9 @@ namespace Application.Services
             //Use 'TechnologyId' for filtering by used technology
             if(input.TechnologyId != null)
                 query = query.Where(s => s.Technologies.Any(t => t.Id == input.TechnologyId));
-
+            //Use 'ProjectId' for filternig by project
+            if(input.ProjectId != null)
+                query = query.Where(s => s.Id == input.ProjectId);
             query = query.ApplySortingById(input.SortBy);
             var pagedResult = new PagedResult<Project, ProjectVDto>(input, query, _mapper);
             return new ApiResponse<PagedResult<ProjectVDto>>(data: pagedResult, isSuccess: true, message: "Success.");

@@ -20,27 +20,26 @@ namespace Infrastructure.Services
 
         public async Task DeleteAsync(Technology technology)
         {
-            _context.Technologies.Remove(technology);
+            technology.Deleted = true;
             await _context.SaveChangesAsync();
         }
 
         public IQueryable<Technology> GetAll()
         {
             return _context.Technologies
-                .Include(p => p.Projects).AsNoTracking();
+                .Where(p => !p.Deleted);
         }
 
         public async Task<Technology?> GetByIdAsync(long id)
         {
             return await _context.Technologies
-                .Include(p => p.Projects)
-                .FirstOrDefaultAsync();
+                .FirstOrDefaultAsync(p => !p.Deleted);
         }
 
         public async Task<List<Technology>> GetByIdsAsync(List<long> ids)
         {
             return await _context.Technologies
-                .Where(t => ids.Contains(t.Id))
+                .Where(t => ids.Contains(t.Id) && t.IsActive && !t.Deleted)
                 .ToListAsync();
         }
 

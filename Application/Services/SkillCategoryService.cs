@@ -1,12 +1,10 @@
 ﻿using Application.DTOs.Common;
-using Application.DTOs.Project;
 using Application.DTOs.SkillCategory;
 using Application.Extensions;
 using Application.Interfaces;
 using AutoMapper;
 using Domain.Entities;
 using Domain.Interfaces;
-using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -48,7 +46,7 @@ namespace Application.Services
 
         public async Task<ApiResponse<SkillCategoryVDto>> GetByIdAsync(long id)
         {
-            var result =await _repository.GetByIdAsync(id);
+            var result = await _repository.GetByIdAsync(id);
             var viewModel = _mapper.Map<SkillCategoryVDto>(result);
 
             return new ApiResponse<SkillCategoryVDto>(data: viewModel, isSuccess: true, message: "Success.");
@@ -63,13 +61,16 @@ namespace Application.Services
             return new ApiResponse<SkillCategoryVDto>(data: viewModel, isSuccess: true, message: "Success.");
         }
 
-        public ApiResponse<PagedResult<SkillCategoryVDto>> Search(BaseInput input)
+        public ApiResponse<PagedResult<SkillCategoryVDto>> Search(SkillCategorySearchInput input)
         {
             var query = _repository.GetAll();
 
             //Use 'Q' for filtering by Name
-            if(!string.IsNullOrEmpty(input.Q))
+            if (!string.IsNullOrEmpty(input.Q))
                 query = query.Where(s => s.Name.Contains(input.Q));
+            //Use 'SkillCategoryId' for filtering by Id
+            if (input.SkillCategoryId != null)
+                query = query.Where(s => s.Id == input.SkillCategoryId);
 
             query = query.ApplySortingById(input.SortBy);
             var pagedResult = new PagedResult<SkillCategory, SkillCategoryVDto>(input, query, _mapper);

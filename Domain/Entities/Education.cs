@@ -15,7 +15,5 @@ namespace Domain.Entities
         public DateTime? EndDate { get; set; }
 
         public string Description { get; set; }
-        public bool IsActive { get; set; } = true;
-        public bool Deleted { get; set; } = false;
     }
 }

@@ -7,7 +7,7 @@ namespace Domain.Entities
         public long Id { get; set; }
         public string Username { get; set; }
         public string PasswordHash { get; set; }
+        public string Salt { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-        public bool IsActive { get; set; }
     }
 }
