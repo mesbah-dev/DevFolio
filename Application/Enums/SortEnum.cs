@@ -9,8 +9,19 @@ namespace Application.Enums
     public enum SortEnum
     {
 
+        /// <summary>
+        /// Default sorting (implementation-specific behavior).
+        /// </summary>
         Default = 0,
+
+        /// <summary>
+        /// Sort by newest items first.
+        /// </summary>
         New = 1,
-        Old = 2,
+
+        /// <summary>
+        /// Sort by oldest items first.
+        /// </summary>
+        Old = 2
     }
 }

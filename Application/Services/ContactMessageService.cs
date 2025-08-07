@@ -54,7 +54,7 @@ namespace Application.Services
             return new ApiResponse<ContactMessageVDto>(data: viewModel, isSuccess: true, message: "Success");
         }
 
-        public ApiResponse<PagedResult<ContactMessageVDto>> SearchAsync(BaseInput input)
+        public ApiResponse<PagedResult<ContactMessageVDto>> Search(BaseInput input)
         {
             var query = _repository.GetAll();
             // Use 'Q' for filtering by Email

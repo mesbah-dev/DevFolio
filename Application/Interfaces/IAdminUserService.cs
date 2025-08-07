@@ -1,6 +1,6 @@
 ﻿using Application.DTOs.AdminUser;
 using Application.DTOs.Common;
-using System.Collections.Generic;
+using Application.DTOs.Security;
 using System.Threading.Tasks;
 
 namespace Application.Interfaces
@@ -8,10 +8,12 @@ namespace Application.Interfaces
     public interface IAdminUserService
     {
         Task<ApiResponse> CreateAdminAsync(AdminUserDto dto);
-        Task<ApiResponse> UpdateAdminAsync(AdminUserDto dto);
+        Task<ApiResponse> UpdateAdminAsync(UpdateAdminDto dto);
         Task<ApiResponse> DeleteAdminAsync(long id);
-        Task<ApiResponse<PagedResult<List<AdminUserVDto>>>> GetAllAsync(PagingInput input);
-        Task<ApiResponse<PagedResult<List<AdminUserVDto>>>> SearchAsync(BaseInput input);
-        Task<ApiResponse<AdminUserDto>> GetByIdAsync(long id);
+        ApiResponse<PagedResult<AdminUserVDto>> GetAll(PagingInput input);
+        ApiResponse<PagedResult<AdminUserVDto>> Search(BaseInput input);
+        Task<ApiResponse<AdminUserVDto>> GetByIdAsync(long id);
+        Task<ApiResponse> ChangeAdminPasswordAsync(ChangePasswordDto dto);
+        Task<ApiResponse<SignInResultDto>> SignInAsync(SignInDto dto);
     }
 }

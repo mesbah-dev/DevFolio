@@ -8,11 +8,13 @@ namespace Domain.Interfaces
     public interface IAdminUserRepository
     {
         Task<AdminUser?> GetByIdAsync(long id);
+        Task<AdminUser?> GetByUsernameAsync(string username);
         IQueryable<AdminUser> GetAll();
         Task AddAsync(AdminUser adminUser);
         Task SaveChangesAsync();
         Task DeleteAsync(AdminUser adminUser);
         Task<bool> IsUsernameUniqueAsync(string username);
+        Task<int> CountAsync();
 
     }
 }

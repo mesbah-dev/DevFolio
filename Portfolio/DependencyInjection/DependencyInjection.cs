@@ -1,5 +1,4 @@
 ﻿using Application.Interfaces;
-using Application.Mappings;
 using Application.Services;
 using Domain.Interfaces;
 using Infrastructure.Services;
@@ -18,9 +17,9 @@ namespace Portfolio.DependencyInjection
             services.AddScoped<IExperienceRepository, ExperienceRepository>();
             services.AddScoped<IProjectRepository, ProjectRepository>();
             services.AddScoped<ISiteSettingRepository, SiteSettingRepository>();
-            services.AddScoped<ISkillCategoryRepository,SkillCategoryRepository>();
+            services.AddScoped<ISkillCategoryRepository, SkillCategoryRepository>();
             services.AddScoped<ISkillRepository, SkillRepository>();
-            services.AddScoped<ISocialLinkRepository,SocialLinkRepository>();
+            services.AddScoped<ISocialLinkRepository, SocialLinkRepository>();
             services.AddScoped<ITechnologyRepository, TechnologyRepository>();
             services.AddScoped<IUserProfileRepository, UserProfileRepository>();
             //Services

@@ -53,12 +53,12 @@ namespace Application.Services
             return new ApiResponse<TechnologyVDto>(data: viewModel, isSuccess: true, message: "Success.");
         }
 
-        public async Task<List<TechnologyDto>> GetTechnologiesByIdsAsync(List<long> ids)
-        {
-            var technologies = await _repository.GetByIdsAsync(ids);
-            var dtos = _mapper.Map<List<TechnologyDto>>(technologies);
-            return dtos;
-        }
+        //public async Task<List<TechnologyVDto>> GetTechnologiesByIdsAsync(List<long> ids)
+        //{
+        //    var technologies = await _repository.GetByIdsAsync(ids);
+        //    var dtos = _mapper.Map<List<TechnologyVDto>>(technologies);
+        //    return dtos;
+        //}
 
         public ApiResponse<PagedResult<TechnologyVDto>> Search(BaseInput input)
         {

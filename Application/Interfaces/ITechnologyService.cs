@@ -13,7 +13,7 @@ namespace Application.Interfaces
         Task<ApiResponse<TechnologyVDto>> GetByIdAsync(long id);
         ApiResponse<PagedResult<TechnologyVDto>> GetAll(PagingInput input);
         ApiResponse<PagedResult<TechnologyVDto>> Search(BaseInput input);
-        Task<List<TechnologyDto>> GetTechnologiesByIdsAsync(List<long> ids);
+        //Task<List<TechnologyVDto>> GetTechnologiesByIdsAsync(List<long> ids);
 
     }
 }

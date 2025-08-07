@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Application.DTOs.Technology
+﻿namespace Application.DTOs.Technology
 {
     public class TechnologyDto
     {
