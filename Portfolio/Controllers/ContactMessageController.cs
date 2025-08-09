@@ -1,6 +1,7 @@
 ﻿using Application.DTOs.Common;
 using Application.DTOs.ContactMessage;
 using Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Portfolio.Controllers
@@ -10,6 +11,7 @@ namespace Portfolio.Controllers
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ContactMessageController : ControllerBase
     {
         private readonly IContactMessageService _contactMessageService;
@@ -81,6 +83,7 @@ namespace Portfolio.Controllers
         /// An <see cref="ApiResponse"/> indicating the success status of the operation and an optional message.
         /// </returns>
         [HttpPost("create")]
+        [AllowAnonymous]
         public async Task<IActionResult> Create([FromBody] ContactMessageDto dto)
         {
             var result = await _contactMessageService.CreateMessageAsync(dto);

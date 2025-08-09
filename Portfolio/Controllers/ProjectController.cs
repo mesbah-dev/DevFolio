@@ -1,6 +1,7 @@
 ﻿using Application.DTOs.Common;
 using Application.DTOs.Project;
 using Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Portfolio.Controllers
@@ -10,6 +11,7 @@ namespace Portfolio.Controllers
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ProjectController : ControllerBase
     {
         private readonly IProjectService _projectService;
@@ -27,6 +29,7 @@ namespace Portfolio.Controllers
         /// along with a success flag and an message.
         /// </returns>
         [HttpGet("getbyid/{id:long}")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetById(long id)
         {
             var result = await _projectService.GetByIdWithTechnologiesAsync(id);
@@ -43,6 +46,7 @@ namespace Portfolio.Controllers
         /// An <see cref="ApiResponse"/> containing a list of project based on the specified paging and sorting criteria.
         /// </returns>
         [HttpGet("getall")]
+        [AllowAnonymous]
         public IActionResult GetAll([FromQuery] PagingInput input)
         {
             var result = _projectService.GetAll(input);
@@ -67,6 +71,7 @@ namespace Portfolio.Controllers
         /// An <see cref="ApiResponse"/> containing the filtered list of project.
         /// </returns>
         [HttpGet("search")]
+        [AllowAnonymous]
         public IActionResult Search([FromQuery] SearchInput input)
         {
             var result = _projectService.Search(input);

@@ -55,6 +55,26 @@ builder.Services.AddSwaggerGen(c =>
         Description = "API documentation for your system",
     });
 
+    var security = new OpenApiSecurityScheme
+    {
+        Name = "JWT Auth",
+        Description = "Please enter the token",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.Http,
+        Scheme = "bearer",
+        BearerFormat = "JWT",
+        Reference = new OpenApiReference
+        {
+            Id = JwtBearerDefaults.AuthenticationScheme,
+            Type = ReferenceType.SecurityScheme
+        }
+    };
+    c.AddSecurityDefinition(security.Reference.Id, security);
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    { security , new string[]{ } }
+                });
+
     var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
     c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
 });

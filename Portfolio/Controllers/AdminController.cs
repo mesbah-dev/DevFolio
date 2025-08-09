@@ -2,6 +2,7 @@
 using Application.DTOs.Common;
 using Application.DTOs.Security;
 using Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Portfolio.Controllers
@@ -9,8 +10,9 @@ namespace Portfolio.Controllers
     /// <summary>
     /// Admin users management
     /// </summary>
-    [ApiController]
     [Route("api/[controller]")]
+    [ApiController]
+    [Authorize]
     public class AdminController : ControllerBase
     {
         private readonly IAdminUserService _adminUserService;
@@ -98,6 +100,7 @@ namespace Portfolio.Controllers
         /// An <see cref="ApiResponse"/> containing a success flag, message, and authentication token if login is successful.
         /// </returns>
         [HttpPost("signin")]
+        [AllowAnonymous]
         public async Task<IActionResult> SignIn([FromBody] SignInDto dto)
         {
             var result = await _adminUserService.SignInAsync(dto);

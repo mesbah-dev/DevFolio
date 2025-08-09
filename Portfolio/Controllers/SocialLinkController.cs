@@ -1,6 +1,7 @@
 ﻿using Application.DTOs.Common;
 using Application.DTOs.SocialLink;
 using Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Portfolio.Controllers
@@ -10,6 +11,7 @@ namespace Portfolio.Controllers
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class SocialLinkController : ControllerBase
     {
         private readonly ISocialLinkService _socialLinkService;
@@ -27,6 +29,7 @@ namespace Portfolio.Controllers
         /// along with a success flag and an message.
         /// </returns>
         [HttpGet("getbyid/{id:long}")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetById(long id)
         {
             var resualt = await _socialLinkService.GetByIdAsync(id);
@@ -42,6 +45,7 @@ namespace Portfolio.Controllers
         /// <returns>
         /// An <see cref="ApiResponse"/> containing a list of social links based on the specified paging and sorting criteria.
         /// </returns>
+        [AllowAnonymous]
         [HttpGet("getall")]
         public IActionResult GetAll([FromQuery] PagingInput input)
         {
@@ -65,6 +69,7 @@ namespace Portfolio.Controllers
         /// An <see cref="ApiResponse"/> containing the filtered list of social link.
         /// </returns>
         [HttpGet("search")]
+        [AllowAnonymous]
         public IActionResult Search([FromQuery] BaseInput input)
         {
             var resualt = _socialLinkService.Search(input);

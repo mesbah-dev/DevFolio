@@ -1,6 +1,8 @@
 ﻿using Application.DTOs.Common;
+using Application.DTOs.Experience;
 using Application.DTOs.Technology;
 using Application.Extensions;
+using Application.Helpers;
 using Application.Interfaces;
 using AutoMapper;
 using Domain.Entities;
@@ -38,6 +40,10 @@ namespace Application.Services
 
         public ApiResponse<PagedResult<TechnologyVDto>> GetAll(PagingInput input)
         {
+            var result = ValidationHelper.IsValidINput(input);
+            if (!result.IsValid)
+                return new ApiResponse<PagedResult<TechnologyVDto>>(data: null, isSuccess: false, message: result.Message);
+
             var query = _repository.GetAll();
             query = query.ApplySortingById(input.SortBy);
 
@@ -48,19 +54,19 @@ namespace Application.Services
         public async Task<ApiResponse<TechnologyVDto>> GetByIdAsync(long id)
         {
             var result = await _repository.GetByIdAsync(id);
+            if (result == null)
+                return new ApiResponse<TechnologyVDto>(data: null, isSuccess: false, message: "Not found");
+
             var viewModel = _mapper.Map<TechnologyVDto>(result);
             return new ApiResponse<TechnologyVDto>(data: viewModel, isSuccess: true, message: "Success.");
         }
 
-        //public async Task<List<TechnologyVDto>> GetTechnologiesByIdsAsync(List<long> ids)
-        //{
-        //    var technologies = await _repository.GetByIdsAsync(ids);
-        //    var dtos = _mapper.Map<List<TechnologyVDto>>(technologies);
-        //    return dtos;
-        //}
-
         public ApiResponse<PagedResult<TechnologyVDto>> Search(BaseInput input)
         {
+            var result = ValidationHelper.IsValidINput(input);
+            if (!result.IsValid)
+                return new ApiResponse<PagedResult<TechnologyVDto>>(data: null, isSuccess: false, message: result.Message);
+
             var query = _repository.GetAll();
             //Use 'Q' for filtering by Name
             if (!String.IsNullOrEmpty(input.Q))

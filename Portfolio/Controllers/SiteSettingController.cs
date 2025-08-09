@@ -1,6 +1,7 @@
 ﻿using Application.DTOs.Common;
 using Application.DTOs.SiteSetting;
 using Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Portfolio.Controllers
@@ -10,6 +11,7 @@ namespace Portfolio.Controllers
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class SiteSettingController : ControllerBase
     {
         private readonly ISiteSettingService _siteSettingService;
@@ -27,6 +29,7 @@ namespace Portfolio.Controllers
         /// along with a success flag and an message.
         /// </returns>
         [HttpGet("getbyid/{id:long}")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetById(long id)
         {
             var result = await _siteSettingService.GetByIdAsync(id);
@@ -43,6 +46,7 @@ namespace Portfolio.Controllers
         /// An <see cref="ApiResponse"/> containing a list of siteSettings based on the specified paging and sorting criteria.
         /// </returns>
         [HttpGet("getall")]
+        [AllowAnonymous]
         public IActionResult GetAll([FromQuery] PagingInput input)
         {
             var result = _siteSettingService.GetAll(input);
@@ -65,6 +69,7 @@ namespace Portfolio.Controllers
         /// An <see cref="ApiResponse"/> containing the filtered list of siteSetting.
         /// </returns>
         [HttpGet("search")]
+        [AllowAnonymous]
         public IActionResult Search([FromQuery] BaseInput input)
         {
             var result = _siteSettingService.Search(input);

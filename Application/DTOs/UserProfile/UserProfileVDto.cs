@@ -9,7 +9,5 @@
         public string Bio { get; set; }
         public string ProfileImageUrl { get; set; }
         public string ResumeUrl { get; set; }
-        public bool IsActive { get; set; }
-        public bool Deleted { get; set; }
     }
 }

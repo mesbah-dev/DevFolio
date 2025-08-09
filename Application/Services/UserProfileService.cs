@@ -1,6 +1,8 @@
 ﻿using Application.DTOs.Common;
+using Application.DTOs.Experience;
 using Application.DTOs.UserProfile;
 using Application.Extensions;
+using Application.Helpers;
 using Application.Interfaces;
 using AutoMapper;
 using Domain.Entities;
@@ -38,6 +40,10 @@ namespace Application.Services
 
         public ApiResponse<PagedResult<UserProfileVDto>> GetAll(PagingInput input)
         {
+            var result = ValidationHelper.IsValidINput(input);
+            if (!result.IsValid)
+                return new ApiResponse<PagedResult<UserProfileVDto>>(data: null, isSuccess: false, message: result.Message);
+
             var query = _repository.GetAll();
             query = query.ApplySortingById(input.SortBy);
 
@@ -48,6 +54,9 @@ namespace Application.Services
         public async Task<ApiResponse<UserProfileVDto>> GetByIdAsync(long id)
         {
             var result = await _repository.GetByIdAsync(id);
+            if (result == null)
+                return new ApiResponse<UserProfileVDto>(data: null, isSuccess: false, message: "Not found");
+
             var viewModel = _mapper.Map<UserProfileVDto>(result);
 
             return new ApiResponse<UserProfileVDto>(data: viewModel, isSuccess: true, message: "Success");
@@ -55,6 +64,10 @@ namespace Application.Services
 
         public ApiResponse<PagedResult<UserProfileVDto>> Search(BaseInput input)
         {
+            var result = ValidationHelper.IsValidINput(input);
+            if (!result.IsValid)
+                return new ApiResponse<PagedResult<UserProfileVDto>>(data: null, isSuccess: false, message: result.Message);
+
             var query = _repository.GetAll();
 
             // Use 'Q' for Filtering by FullName
