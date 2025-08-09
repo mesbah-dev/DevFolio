@@ -1,11 +1,11 @@
 ﻿using Application.DTOs.Common;
 using Application.DTOs.Project;
 using Application.Extensions;
+using Application.Helpers;
 using Application.Interfaces;
 using AutoMapper;
 using Domain.Entities;
 using Domain.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -25,7 +25,7 @@ namespace Application.Services
         }
         public async Task<ApiResponse> CreateProjectAsync(CreateProjectDto dto)
         {
-            if (dto.TechnologyIds == null)
+            if (dto.TechnologyIds.Count == 0)
                 return new ApiResponse(isSuccess: false, message: "Please Select Project's Technologies.");
             var technologies = await _technologyRepository.GetByIdsAsync(dto.TechnologyIds);
             if (technologies.Count != dto.TechnologyIds.Count)
@@ -37,8 +37,6 @@ namespace Application.Services
                 ImageUrl = dto.ImageUrl,
                 GitHubUrl = dto.GitHubUrl,
                 DemoUrl = dto.DemoUrl,
-                IsActive = dto.IsActive,
-                Deleted = false,
                 Technologies = technologies
             };
             await _repository.AddAsync(project);
@@ -54,10 +52,14 @@ namespace Application.Services
             await _repository.DeleteAsync(project);
             return new ApiResponse(isSuccess: true, message: "Success.");
         }
-        
+
         public ApiResponse<PagedResult<ProjectVDto>> GetAll(PagingInput input)
         {
-            var query= _repository.GetAll();
+            var result = ValidationHelper.IsValidINput(input);
+            if (!result.IsValid)
+                return new ApiResponse<PagedResult<ProjectVDto>>(data: null, isSuccess: false, message: result.Message);
+
+            var query = _repository.GetAll();
             query = query.ApplySortingById(input.SortBy);
 
             var pagedResult = new PagedResult<Project, ProjectVDto>(input, query, _mapper);
@@ -67,6 +69,9 @@ namespace Application.Services
         public async Task<ApiResponse<ProjectVDto>> GetByIdWithTechnologiesAsync(long id)
         {
             var result = await _repository.GetByIdWithTechnologiesAsync(id);
+            if (result == null)
+                return new ApiResponse<ProjectVDto>(data: null, isSuccess: false, message: "Not found");
+
             var viewModel = _mapper.Map<ProjectVDto>(result);
 
             return new ApiResponse<ProjectVDto>(data: viewModel, isSuccess: true, message: "Success.");
@@ -74,16 +79,20 @@ namespace Application.Services
 
         public ApiResponse<PagedResult<ProjectVDto>> Search(SearchInput input)
         {
+            var result = ValidationHelper.IsValidINput(input);
+            if (!result.IsValid)
+                return new ApiResponse<PagedResult<ProjectVDto>>(data: null, isSuccess: false, message: result.Message);
+
             var query = _repository.GetAll();
 
             // Use 'Q' for filtering by title.
-            if(!string.IsNullOrEmpty(input.Q))
+            if (!string.IsNullOrEmpty(input.Q))
                 query = query.Where(s => s.Title.Contains(input.Q));
             //Use 'TechnologyId' for filtering by used technology
-            if(input.TechnologyId != null)
+            if (input.TechnologyId != null)
                 query = query.Where(s => s.Technologies.Any(t => t.Id == input.TechnologyId));
             //Use 'ProjectId' for filternig by project
-            if(input.ProjectId != null)
+            if (input.ProjectId != null)
                 query = query.Where(s => s.Id == input.ProjectId);
             query = query.ApplySortingById(input.SortBy);
             var pagedResult = new PagedResult<Project, ProjectVDto>(input, query, _mapper);
@@ -107,13 +116,27 @@ namespace Application.Services
             if (project == null)
                 return new ApiResponse(isSuccess: false, message: "Project not found");
 
-            var newTechnologies = await _technologyRepository.GetByIdsAsync(technologyIds);
+            var fetchedTechnologies = await _technologyRepository.GetByIdsAsync(technologyIds);
 
-            project.Technologies.Clear();
-            foreach(var tech in newTechnologies)
+            var missingIds = technologyIds.Except(fetchedTechnologies.Select(t => t.Id)).ToList();
+            if (missingIds.Any())
+            {
+                return new ApiResponse(isSuccess: false, message: $"Technologies not found: {string.Join(", ", missingIds)}");
+            }
+
+            var toRemove = project.Technologies.Where(t => !technologyIds.Contains(t.Id)).ToList();
+            foreach (var r in toRemove)
+                project.Technologies.Remove(r);
+
+            var currentTechnologyIds = project.Technologies.Select(t => t.Id).ToHashSet();
+            var toAdd = fetchedTechnologies.Where(t => !currentTechnologyIds.Contains(t.Id));
+            foreach (var tech in toAdd)
+            {
                 project.Technologies.Add(tech);
+            }
 
             await _repository.SaveChangesAsync();
+
             return new ApiResponse(isSuccess: true, message: "Success");
         }
     }

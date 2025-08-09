@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Infrastructure.Services
+namespace Infrastructure.Repositories
 {
     public class TechnologyRepository(AppDbContext context) : ITechnologyRepository
     {
@@ -20,26 +20,26 @@ namespace Infrastructure.Services
 
         public async Task DeleteAsync(Technology technology)
         {
-            technology.Deleted = true;
+            _context.Technologies.Remove(technology);
             await _context.SaveChangesAsync();
         }
 
         public IQueryable<Technology> GetAll()
         {
             return _context.Technologies
-                .Where(p => !p.Deleted);
+                .AsNoTracking();
         }
 
         public async Task<Technology?> GetByIdAsync(long id)
         {
             return await _context.Technologies
-                .FirstOrDefaultAsync(p => !p.Deleted);
+                .FindAsync(id);
         }
 
         public async Task<List<Technology>> GetByIdsAsync(List<long> ids)
         {
             return await _context.Technologies
-                .Where(t => ids.Contains(t.Id) && t.IsActive && !t.Deleted)
+                .Where(t => ids.Contains(t.Id))
                 .ToListAsync();
         }
 

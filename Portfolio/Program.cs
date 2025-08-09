@@ -2,7 +2,7 @@ using Application.DTOs.Security;
 using Application.Interfaces.Security;
 using Application.Mappings;
 using Infrastructure.Persistence.Context;
-using Infrastructure.Services.Security;
+using Infrastructure.Repositories.Security;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -67,6 +67,12 @@ builder.Services.RegisterServices(builder.Configuration);
 builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
 
 
+
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles);
+
+
 // Add controllers to the service container (for API endpoints)
 builder.Services.AddControllers();
 
@@ -84,7 +90,7 @@ app.UseSwagger();
 app.UseSwaggerUI(c =>
 {
     c.SwaggerEndpoint("/swagger/v1/swagger.json", "Your API V1");
-    c.RoutePrefix = "swagger"; 
+    c.RoutePrefix = "swagger";
 });
 
 // Map attribute-routed controllers (i.e., APIs)

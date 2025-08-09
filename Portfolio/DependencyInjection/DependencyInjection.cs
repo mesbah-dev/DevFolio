@@ -1,7 +1,7 @@
 ﻿using Application.Interfaces;
 using Application.Services;
 using Domain.Interfaces;
-using Infrastructure.Services;
+using Infrastructure.Repositories;
 
 namespace Portfolio.DependencyInjection
 {
@@ -30,6 +30,7 @@ namespace Portfolio.DependencyInjection
             services.AddScoped<IProjectService, ProjectService>();
             services.AddScoped<ISiteSettingService, SiteSettingService>();
             services.AddScoped<ISkillCategoryService, SkillCategoryService>();
+            services.AddScoped<ISkillService, SkillService>();
             services.AddScoped<ISocialLinkService, SocialLinkService>();
             services.AddScoped<ITechnologyService, TechnologyService>();
             services.AddScoped<IUserProfileService, UserProfileService>();

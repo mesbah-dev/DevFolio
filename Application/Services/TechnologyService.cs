@@ -6,7 +6,6 @@ using AutoMapper;
 using Domain.Entities;
 using Domain.Interfaces;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -67,8 +66,6 @@ namespace Application.Services
             if (!String.IsNullOrEmpty(input.Q))
                 query = query.Where(t => t.Name.Contains(input.Q));
             //Use 'Active' for filtering by active status
-            if (input.Active.HasValue)
-                query = query.Where(t => t.IsActive == input.Active.Value);
             query = query.ApplySortingById(input.SortBy);
 
             var pagedResult = new PagedResult<Technology, TechnologyVDto>(input, query, _mapper);

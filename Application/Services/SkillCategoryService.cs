@@ -1,6 +1,8 @@
 ﻿using Application.DTOs.Common;
+using Application.DTOs.Experience;
 using Application.DTOs.SkillCategory;
 using Application.Extensions;
+using Application.Helpers;
 using Application.Interfaces;
 using AutoMapper;
 using Domain.Entities;
@@ -37,6 +39,10 @@ namespace Application.Services
 
         public ApiResponse<PagedResult<SkillCategoryVDto>> GetAll(PagingInput input)
         {
+            var result = ValidationHelper.IsValidINput(input);
+            if (!result.IsValid)
+                return new ApiResponse<PagedResult<SkillCategoryVDto>>(data: null, isSuccess: false, message: result.Message);
+
             var query = _repository.GetAll();
             query = query.ApplySortingById(input.SortBy);
 
@@ -47,6 +53,9 @@ namespace Application.Services
         public async Task<ApiResponse<SkillCategoryVDto>> GetByIdAsync(long id)
         {
             var result = await _repository.GetByIdAsync(id);
+            if (result == null)
+                return new ApiResponse<SkillCategoryVDto>(data: null, isSuccess: false, message: "Not found");
+
             var viewModel = _mapper.Map<SkillCategoryVDto>(result);
 
             return new ApiResponse<SkillCategoryVDto>(data: viewModel, isSuccess: true, message: "Success.");
@@ -56,6 +65,9 @@ namespace Application.Services
         public async Task<ApiResponse<SkillCategoryVDto>> GetByIdWithSkillsAsync(long id)
         {
             var result = await _repository.GetByIdWithSkillsAsync(id);
+            if (result == null)
+                return new ApiResponse<SkillCategoryVDto>(data: null, isSuccess: false, message: "Not found");
+
             var viewModel = _mapper.Map<SkillCategoryVDto>(result);
 
             return new ApiResponse<SkillCategoryVDto>(data: viewModel, isSuccess: true, message: "Success.");
@@ -63,14 +75,21 @@ namespace Application.Services
 
         public ApiResponse<PagedResult<SkillCategoryVDto>> Search(SkillCategorySearchInput input)
         {
+            var result = ValidationHelper.IsValidINput(input);
+            if (!result.IsValid)
+                return new ApiResponse<PagedResult<SkillCategoryVDto>>(data: null, isSuccess: false, message: result.Message);
+
             var query = _repository.GetAll();
 
-            //Use 'Q' for filtering by Name
+            // Use 'Q' for filtering by Name
             if (!string.IsNullOrEmpty(input.Q))
                 query = query.Where(s => s.Name.Contains(input.Q));
             //Use 'SkillCategoryId' for filtering by Id
             if (input.SkillCategoryId != null)
                 query = query.Where(s => s.Id == input.SkillCategoryId);
+            // Use "Active" for filterning by active status
+            if (input.Active.HasValue)
+                query = query.Where(s => s.IsActive == input.Active.Value);
 
             query = query.ApplySortingById(input.SortBy);
             var pagedResult = new PagedResult<SkillCategory, SkillCategoryVDto>(input, query, _mapper);

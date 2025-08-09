@@ -1,6 +1,8 @@
 ﻿using Application.DTOs.Common;
+using Application.DTOs.Experience;
 using Application.DTOs.Skill;
 using Application.Extensions;
+using Application.Helpers;
 using Application.Interfaces;
 using AutoMapper;
 using Domain.Entities;
@@ -46,6 +48,10 @@ namespace Application.Services
 
         public ApiResponse<PagedResult<SkillVDto>> GetAll(PagingInput input)
         {
+            var result = ValidationHelper.IsValidINput(input);
+            if (!result.IsValid)
+                return new ApiResponse<PagedResult<SkillVDto>>(data: null, isSuccess: false, message: result.Message);
+
             var query = _repository.GetAll();
             query = query.ApplySortingById(input.SortBy);
 
@@ -57,6 +63,9 @@ namespace Application.Services
         public async Task<ApiResponse<SkillVDto>> GetByIdAsync(long id)
         {
             var result = await _repository.GetByIdAsync(id);
+            if (result == null)
+                return new ApiResponse<SkillVDto>(data: null, isSuccess: false, message: "Not found");
+
             var viewModel = _mapper.Map<SkillVDto>(result);
 
             return new ApiResponse<SkillVDto>(data: viewModel, isSuccess: true, message: "Success.");
@@ -64,6 +73,10 @@ namespace Application.Services
 
         public ApiResponse<PagedResult<SkillVDto>> Search(SkillSearchInput input)
         {
+            var result = ValidationHelper.IsValidINput(input);
+            if (!result.IsValid)
+                return new ApiResponse<PagedResult<SkillVDto>>(data: null, isSuccess: false, message: result.Message);
+
             var query = _repository.GetAll();
             //Use 'Q' for filtering by Name
             if (!string.IsNullOrEmpty(input.Q))
@@ -82,6 +95,10 @@ namespace Application.Services
             var entity = await _repository.GetByIdAsync(dto.Id);
             if (entity == null)
                 return new ApiResponse(isSuccess: false, message: "Skill not found.");
+
+            var category = await _categoryRepository.GetByIdAsync(dto.SkillCategoryId);
+            if (category == null)
+                return new ApiResponse(isSuccess: false, message: "Skill category not found.");
 
             _mapper.Map(dto, entity);
             await _repository.SaveChangesAsync();

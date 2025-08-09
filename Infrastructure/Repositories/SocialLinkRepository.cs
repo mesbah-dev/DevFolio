@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Infrastructure.Services
+namespace Infrastructure.Repositories
 {
     public class SocialLinkRepository(AppDbContext context) : ISocialLinkRepository
     {

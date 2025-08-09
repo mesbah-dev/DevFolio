@@ -1,6 +1,8 @@
 ﻿using Application.DTOs.Common;
+using Application.DTOs.Education;
 using Application.DTOs.Experience;
 using Application.Extensions;
+using Application.Helpers;
 using Application.Interfaces;
 using AutoMapper;
 using Domain.Entities;
@@ -37,6 +39,10 @@ namespace Application.Services
 
         public ApiResponse<PagedResult<ExperienceVDto>> GetAll(PagingInput input)
         {
+            var result = ValidationHelper.IsValidINput(input);
+            if (!result.IsValid)
+                return new ApiResponse<PagedResult<ExperienceVDto>>(data: null, isSuccess: false, message: result.Message);
+
             var query = _repository.GetAll();
             query = query.ApplySortingById(input.SortBy);
 
@@ -47,6 +53,9 @@ namespace Application.Services
         public async Task<ApiResponse<ExperienceVDto>> GetByIdAsync(long id)
         {
             var result = await _repository.GetByIdAsync(id);
+            if (result == null)
+                return new ApiResponse<ExperienceVDto>(data: null, isSuccess: false, message: "Not found");
+
             var viewModel = _mapper.Map<ExperienceVDto>(result);
 
             return new ApiResponse<ExperienceVDto>(data: viewModel, isSuccess: true, message: "Success");
@@ -55,6 +64,10 @@ namespace Application.Services
 
         public ApiResponse<PagedResult<ExperienceVDto>> Search(BaseInput input)
         {
+            var result = ValidationHelper.IsValidINput(input);
+            if (!result.IsValid)
+                return new ApiResponse<PagedResult<ExperienceVDto>>(data: null, isSuccess: false, message: result.Message);
+
             var query = _repository.GetAll();
             //Use 'Q' for filternig by JobTitle
             if (!string.IsNullOrEmpty(input.Q))

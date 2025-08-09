@@ -1,6 +1,8 @@
 ﻿using Application.DTOs.Common;
+using Application.DTOs.Education;
 using Application.DTOs.SiteSetting;
 using Application.Extensions;
+using Application.Helpers;
 using Application.Interfaces;
 using AutoMapper;
 using Domain.Entities;
@@ -38,6 +40,10 @@ namespace Application.Services
 
         public ApiResponse<PagedResult<SiteSettingVDto>> GetAll(PagingInput input)
         {
+            var result = ValidationHelper.IsValidINput(input);
+            if (!result.IsValid)
+                return new ApiResponse<PagedResult<SiteSettingVDto>>(data: null, isSuccess: false, message: result.Message);
+
             var query = _repository.GetAll();
             query = query.ApplySortingById(input.SortBy);
 
@@ -48,6 +54,9 @@ namespace Application.Services
         public async Task<ApiResponse<SiteSettingVDto>> GetByIdAsync(long id)
         {
             var result = await _repository.GetByIdAsync(id);
+            if (result == null)
+                return new ApiResponse<SiteSettingVDto>(data: null, isSuccess: false, "Not found.");
+
             var viewModel = _mapper.Map<SiteSettingVDto>(result);
 
             return new ApiResponse<SiteSettingVDto>(data: viewModel, isSuccess: true, message: "Success");
@@ -55,6 +64,10 @@ namespace Application.Services
 
         public ApiResponse<PagedResult<SiteSettingVDto>> Search(BaseInput input)
         {
+            var result = ValidationHelper.IsValidINput(input);
+            if (!result.IsValid)
+                return new ApiResponse<PagedResult<SiteSettingVDto>>(data: null, isSuccess: false, message: result.Message);
+
             var query = _repository.GetAll();
             // Use 'Q' for filtering by SiteTitle
             if (!string.IsNullOrEmpty(input.Q))

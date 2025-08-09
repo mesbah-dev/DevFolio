@@ -15,9 +15,6 @@ namespace Domain.Entities
         public string GitHubUrl { get; set; }
 
         public string DemoUrl { get; set; }
-        public bool IsActive { get; set; } = true;
-        public bool Deleted { get; set; } = false;
-
         public ICollection<Technology> Technologies { get; set; }
     }
 }

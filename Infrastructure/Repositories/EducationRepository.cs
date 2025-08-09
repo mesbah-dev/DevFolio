@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Infrastructure.Services
+namespace Infrastructure.Repositories
 {
     public class EducationRepository(AppDbContext context) : IEducationRepository
     {

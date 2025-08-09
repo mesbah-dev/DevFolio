@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrastructure.Services.Security
+namespace Infrastructure.Repositories.Security
 {
     public class JwtSettingsProvider : IJwtSettingsProvider
     {

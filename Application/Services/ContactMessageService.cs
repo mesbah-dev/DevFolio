@@ -1,4 +1,5 @@
-﻿using Application.DTOs.Common;
+﻿using Application.DTOs.AdminUser;
+using Application.DTOs.Common;
 using Application.DTOs.ContactMessage;
 using Application.Extensions;
 using Application.Helpers;
@@ -27,9 +28,11 @@ namespace Application.Services
             if (!ValidationHelper.IsValidEmail(dto.Email))
                 return new ApiResponse(isSuccess: false, message: "Email Is Not Valid");
             var sanitizedMessage = InputSanitizer.SanitizeBasic(dto.Message);
+            var sanitizedFullName = InputSanitizer.SanitizeBasic(dto.FullName);
 
             var entity = _mapper.Map<ContactMessage>(dto);
             entity.Message = sanitizedMessage;
+            entity.FullName = sanitizedFullName;
             entity.CreatedAt = DateTime.Now;
 
             await _repository.AddAsync(entity);
@@ -38,6 +41,10 @@ namespace Application.Services
 
         public ApiResponse<PagedResult<ContactMessageVDto>> GetAll(PagingInput input)
         {
+            var result = ValidationHelper.IsValidINput(input);
+            if (!result.IsValid)
+                return new ApiResponse<PagedResult<ContactMessageVDto>>(data: null, isSuccess: false, message: result.Message);
+
             var query = _repository.GetAll();
             query = query.ApplySortingById(input.SortBy);
 
@@ -56,6 +63,10 @@ namespace Application.Services
 
         public ApiResponse<PagedResult<ContactMessageVDto>> Search(BaseInput input)
         {
+            var result = ValidationHelper.IsValidINput(input);
+            if (!result.IsValid)
+                return new ApiResponse<PagedResult<ContactMessageVDto>>(data: null, isSuccess: false, message: result.Message);
+
             var query = _repository.GetAll();
             // Use 'Q' for filtering by Email
             if (!string.IsNullOrEmpty(input.Q))

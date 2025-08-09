@@ -1,6 +1,8 @@
-﻿using Application.DTOs.Common;
+﻿using Application.DTOs.AdminUser;
+using Application.DTOs.Common;
 using Application.DTOs.Education;
 using Application.Extensions;
+using Application.Helpers;
 using Application.Interfaces;
 using AutoMapper;
 using Domain.Entities;
@@ -37,6 +39,10 @@ namespace Application.Services
 
         public ApiResponse<PagedResult<EducationVDto>> GetAll(PagingInput input)
         {
+            var result = ValidationHelper.IsValidINput(input);
+            if (!result.IsValid)
+                return new ApiResponse<PagedResult<EducationVDto>>(data: null, isSuccess: false, message: result.Message);
+
             var query = _repository.GetAll();
             query = query.ApplySortingById(input.SortBy);
 
@@ -47,6 +53,8 @@ namespace Application.Services
         public async Task<ApiResponse<EducationVDto>> GetByIdAsync(long id)
         {
             var result = await _repository.GetByIdAsync(id);
+            if (result == null)
+                return new ApiResponse<EducationVDto>(data: null, isSuccess: false, "Not found.");
             var viewModel = _mapper.Map<EducationVDto>(result);
 
             return new ApiResponse<EducationVDto>(data: viewModel, isSuccess: true, message: "Success");
@@ -56,6 +64,10 @@ namespace Application.Services
 
         public ApiResponse<PagedResult<EducationVDto>> Search(BaseInput input)
         {
+            var result = ValidationHelper.IsValidINput(input);
+            if (!result.IsValid)
+                return new ApiResponse<PagedResult<EducationVDto>>(data: null, isSuccess: false, message: result.Message);
+
             var query = _repository.GetAll();
 
             // Use 'Q' for Filtering by University

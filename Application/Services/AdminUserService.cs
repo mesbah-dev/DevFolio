@@ -73,7 +73,7 @@ namespace Application.Services
             var cleanedUsername = dto.Username?.Trim();
             if (string.IsNullOrWhiteSpace(cleanedUsername))
                 return new ApiResponse(isSuccess: false, message: "Username can't be empty or null");
-
+            cleanedUsername = cleanedUsername.Replace(" ", "");
             var usernameIsUnique = await _repository.IsUsernameUniqueAsync(cleanedUsername);
             if (!usernameIsUnique)
                 return new ApiResponse(isSuccess: false, message: "Username should be unique");
@@ -119,6 +119,10 @@ namespace Application.Services
 
         public ApiResponse<PagedResult<AdminUserVDto>> GetAll(PagingInput input)
         {
+            var result = ValidationHelper.IsValidINput(input);
+            if (!result.IsValid)
+                return new ApiResponse<PagedResult<AdminUserVDto>>(data: null, isSuccess: false, message: result.Message);
+
             var query = _repository.GetAll();
             query = query.ApplySortingById(input.SortBy);
 
@@ -129,6 +133,9 @@ namespace Application.Services
         public async Task<ApiResponse<AdminUserVDto>> GetByIdAsync(long id)
         {
             var result = await _repository.GetByIdAsync(id);
+            if (result == null)
+                return new ApiResponse<AdminUserVDto>(data: null, isSuccess: false, message: "User not found");
+
             var viewModel = _mapper.Map<AdminUserVDto>(result);
 
             return new ApiResponse<AdminUserVDto>(data: viewModel, isSuccess: true, message: "Success");
@@ -136,6 +143,10 @@ namespace Application.Services
 
         public ApiResponse<PagedResult<AdminUserVDto>> Search(BaseInput input)
         {
+            var result = ValidationHelper.IsValidINput(input);
+            if (!result.IsValid)
+                return new ApiResponse<PagedResult<AdminUserVDto>>(data: null, isSuccess: false, message: result.Message);
+
             var query = _repository.GetAll();
             //Use 'Q' for filtering by Username
             if (!string.IsNullOrEmpty(input.Q))
@@ -153,6 +164,7 @@ namespace Application.Services
                 return new ApiResponse(isSuccess: false, message: "Username cannot be empty.");
 
             var cleanedUsername = dto.Username.Trim();
+            cleanedUsername = cleanedUsername.Replace(" ", "");
 
             var admin = await _repository.GetByIdAsync(dto.Id);
             if (admin == null)
@@ -163,7 +175,7 @@ namespace Application.Services
                 var isUnique = await _repository.IsUsernameUniqueAsync(cleanedUsername);
 
                 if (!isUnique)
-                    return new ApiResponse(isSuccess: false, message: "Username alreade exsits.");
+                    return new ApiResponse(isSuccess: false, message: "Username already exsits.");
             }
 
             admin.Username = cleanedUsername;
