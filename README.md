@@ -17,7 +17,7 @@ With DevFolio, you can manage your projects, skills, education, experiences, and
 - ORM: Entity Framework Core 
 - Authentication: JWT Bearer Token
 - Documentation: Swagger 
-- Architecture: Clean, layered (Entities, DataLayer, Persistence, WebAPI)
+- Architecture: Clean, layered (Application, Domain, Infrastructure, WebAPI)
 
 # ⚡ Getting Started
 
@@ -68,7 +68,7 @@ This project welcomes contributions! Feel free to:
 # 📄 License
 This project is licensed under the MIT License — free to use, modify, and share.
 
-# 📌 ScreenShots
+# 📌 Screenshots
 <img width="2266" height="1318" alt="Annotation 2025-08-13 203743" src="https://github.com/user-attachments/assets/ea442ca9-34ac-41ca-8903-dfce8127cebd" />
 
 ---
