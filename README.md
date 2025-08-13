@@ -1,7 +1,7 @@
 # DevFolio 🚀
 DevFolio is a modern, professional backend solution designed to help developers quickly create and manage a personal portfolio website. Built with ASP.NET Core 8 and following Clean Architecture, it ensures maintainable, scalable, and secure development.
 
-With DevFolio, you can manage your projects, skills, education, experiences, and social links through a RESTful API, all protected by JWT authentication for a single admin.
+With DevFolio, you can manage your projects, skills, education, experiences, and social links through a RESTful API, all protected by JWT authentication for admins.
 
 # 🌟 Key Highlights
 -  Admin Authentication — Secure login with JWT. Multiple admins can be created, all sharing the same admin role.
