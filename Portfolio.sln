@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36301.6 d17.14
+VisualStudioVersion = 17.14.36301.6
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Portfolio", "Portfolio\Portfolio.csproj", "{93547F73-438B-41F6-9A2B-FF8104343992}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "Portfolio\Web.csproj", "{93547F73-438B-41F6-9A2B-FF8104343992}"
 	ProjectSection(ProjectDependencies) = postProject
 		{20FFCC02-5053-4747-B00A-D0848101E159} = {20FFCC02-5053-4747-B00A-D0848101E159}
 	EndProjectSection

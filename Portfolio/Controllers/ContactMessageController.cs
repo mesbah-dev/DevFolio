@@ -4,7 +4,7 @@ using Application.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Portfolio.Controllers
+namespace Web.Controllers
 {
     /// <summary>
     /// Contact message management

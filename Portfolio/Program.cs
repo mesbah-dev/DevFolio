@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using Portfolio.DependencyInjection;
 using System.Reflection;
 using System.Text;
+using Web.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 

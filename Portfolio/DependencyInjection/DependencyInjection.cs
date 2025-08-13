@@ -3,7 +3,7 @@ using Application.Services;
 using Domain.Interfaces;
 using Infrastructure.Repositories;
 
-namespace Portfolio.DependencyInjection
+namespace Web.DependencyInjection
 {
     public static class DependencyInjection
     {
